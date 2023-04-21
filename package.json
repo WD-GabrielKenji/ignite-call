@@ -9,6 +9,7 @@
     "lint": "npx lint src --ext .ts.tsx"
   },
   "dependencies": {
+    "@gk-ignite-ui/react": "^1.1.0",
     "@types/node": "18.15.12",
     "@types/react": "18.0.37",
     "@types/react-dom": "18.0.11",
