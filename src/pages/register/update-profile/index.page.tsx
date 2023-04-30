@@ -1,8 +1,21 @@
+import { GetServerSideProps } from 'next'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { getServerSession } from 'next-auth'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Button, Heading, MultiStep, Text, TextArea } from '@gk-ignite-ui/react'
+import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
+import { api } from '@/lib/axios'
+import {
+  Avatar,
+  Button,
+  Heading,
+  MultiStep,
+  Text,
+  TextArea,
+} from '@gk-ignite-ui/react'
 
 import { ArrowRight } from 'phosphor-react'
 import { Container, Header } from '../styles'
@@ -23,7 +36,16 @@ export default function UpdateProfile() {
     resolver: zodResolver(updateProfileSchema),
   })
 
-  async function handleUpdateProfile() {}
+  const session = useSession()
+  const router = useRouter()
+
+  async function handleUpdateProfile(data: UpdateProfileData) {
+    await api.put('/users/profile', {
+      bio: data.bio,
+    })
+
+    await router.push(`/schedule/${session.data?.user.username}`)
+  }
 
   return (
     <Container>
@@ -40,6 +62,11 @@ export default function UpdateProfile() {
       <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
           <Text>Foto de perfil</Text>
+          <Avatar
+            src={session.data?.user.avatar_url}
+            referrerPolicy="no-referrer"
+            alt={session.data?.user.name}
+          />
         </label>
 
         <label>
@@ -57,4 +84,18 @@ export default function UpdateProfile() {
       </ProfileBox>
     </Container>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(
+    req,
+    res,
+    buildNextAuthOptions(req, res),
+  )
+
+  return {
+    props: {
+      session,
+    },
+  }
 }
