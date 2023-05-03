@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 
-import { prisma } from '../../../lib/prisma'
+import { prisma } from '@/lib/prisma'
 import { NextSeo } from 'next-seo'
 import { ScheduleForm } from './ScheduleForm'
 import { Avatar, Heading, Text } from '@gk-ignite-ui/react'

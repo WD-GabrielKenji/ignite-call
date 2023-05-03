@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useMemo, useState } from 'react'
 
-import { getWeekDays } from '../../utils/get-week-days'
+import { getWeekDays } from '@/utils/get-week-days'
 import { api } from '@/lib/axios'
 
 import { CaretLeft, CaretRight } from 'phosphor-react'

@@ -3,7 +3,7 @@ import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { z } from 'zod'
 
-import { prisma } from '../../../../lib/prisma'
+import { prisma } from '@/lib/prisma'
 import { getGoogleOAuthToken } from '@/lib/google'
 
 export default async function handler(
