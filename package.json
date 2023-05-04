@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "npx lint src --ext .ts.tsx"
+    "lint": "npx lint src --ext .ts.tsx",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@gk-ignite-ui/react": "^1.1.0",
